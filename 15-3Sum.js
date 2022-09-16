@@ -3,12 +3,28 @@
  * @return {number[][]}
  */
 const threeSum = function (nums) {
-  function binSearch(ser, val, start, end) {
+  function binSearchR(ser, val, start, end) {
     if (start > end) return -1
     const mid = Math.floor((start + end) / 2)
-    if (ser[mid] < val) return binSearch(ser, val, mid + 1, end)
-    if (ser[mid] > val) return binSearch(ser, val, start, mid - 1)
+    if (ser[mid] < val) return binSearchR(ser, val, mid + 1, end)
+    if (ser[mid] > val) return binSearchR(ser, val, start, mid - 1)
     return mid
+  }
+  function binSearch(ser, val, start, end) {
+    let low = start
+    let high = end
+    let mid
+    while (low <= high) {
+      mid = Math.floor((low + high) / 2)
+      if (ser[mid] === val) {
+        return mid
+      } else if (ser[mid] < val) {
+        low = mid + 1
+      } else if (ser[mid] > val) {
+        high = mid - 1
+      }
+    }
+    return -1
   }
   res = new Set()
   sor = nums.sort((a, b) => a - b)
@@ -29,4 +45,4 @@ const threeSum = function (nums) {
   res = [...res].map((s) => s.split(',').map((x) => Number(x)))
   return res
 }
-console.log(threeSum([3, 0, -2, -1, 1, 2]))
+console.log(threeSum([-1, 0, 1, 2, -1, -4]))
