@@ -1,14 +1,3 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode[]} lists
- * @return {ListNode}
- */
 class MinHeapNode {
   constructor() {
     this.heap = [null]
@@ -61,32 +50,16 @@ class MinHeapNode {
     return res
   }
 }
-
-const mergeKLists = function (lists) {
-  let minInd = new MinHeapNode()
-  lists.forEach((head, i) => {
-    if (head) {
-      const val = Number(head.val)
-      const next = head.next
-      minInd.insert({ val, next, key: i })
-    }
-  })
-  let head = new ListNode()
-  let last = head
-
-  while (!minInd.empty()) {
-    // console.log(minInd)
-    const { val, key, next } = minInd.remove()
-    last.next = new ListNode(val)
-    last = last.next
-    if (next) minInd.insert({ val: Number(next.val), next: next.next, key })
-  }
-  return head.next
+const heap = new MinHeapNode()
+let stones = [
+  -6, -3, -1, 1, 2, 2, 2, -10, -8, -6, -2, 4, -2, -8, -4, -3, -3, -2, -1, 1, 2, 3, -8, -6, -5, -4, -2, -2, 2, 4,
+]
+stones.forEach((sto) => {
+  heap.insert({ val: sto })
+})
+let res = []
+while (!heap.empty()) {
+  console.log(heap.heap)
+  res.push(heap.remove().val)
 }
-console.log(
-  mergeKLists([
-    [1, 4, 5],
-    [1, 3, 4],
-    [2, 6],
-  ])
-)
+console.log(res)
