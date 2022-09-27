@@ -17,7 +17,7 @@ function mulListNum(nlist, d1, dcount = 1) {
   }
   return res
 }
-function sumList(nlist1, nlist2, dcount = 1) {
+function sum2Lists(nlist1, nlist2, dcount = 1) {
   let base = 10 ** dcount
   let res = []
   let len = Math.max(nlist1.length, nlist2.length)
@@ -41,6 +41,8 @@ function sumList(nlist1, nlist2, dcount = 1) {
     if (sum >= base) {
       sum -= base
       carry = 1
+    } else {
+      carry = 0
     }
     res.unshift(sum)
     ind -= 1
@@ -50,24 +52,44 @@ function sumList(nlist1, nlist2, dcount = 1) {
   }
   return res
 }
-function numToDigitList(num, dcount) {
+function numToDigitList(num, dcount = 1) {
   let res = []
   let clone = [...num]
-  console.log(clone)
+  // console.log(clone)
   let bp = clone.length
   while (clone.length > 0) {
     bp = Math.max(0, bp - dcount)
     let dlist = clone.splice(bp, dcount)
     let digit = dlist.join('')
-    console.log(digit)
+    // console.log(digit)
     res.unshift(digit)
   }
   return res.map((d) => Number(d))
 }
+function digitListToNumStr(dlist, dcount) {
+  return dlist.map((d, i) => (i === 0 ? String(d) : String(d).padStart(dcount, '0'))).join('')
+}
 
 const multiply = function (num1, num2) {
-  if (num1 === '0' || nums === '0') return '0'
+  if (num1 === '0' || num2 === '0') return '0'
+  const dcount = 4 // 4 is faster than 1
+  let nlist1 = numToDigitList(num1, dcount)
+  let nlist2 = numToDigitList(num2, dcount)
+
+  let mulList = [...nlist1]
+  let sumli = [0]
+  for (let i = nlist2.length - 1; i >= 0; --i) {
+    // console.log(mulList)
+    let mul1 = mulListNum(mulList, nlist2[i], dcount)
+    // console.log(mul1)
+    sumli = sum2Lists(sumli, mul1, dcount)
+    // console.log(sumli)
+    mulList.push(0)
+  }
+  return digitListToNumStr(sumli, dcount)
 }
 console.log(mulListNum([1, 2, 3, 4, 9], 9))
-console.log(sumList([1, 2, 3, 4, 9], [9, 9]))
+console.log(sum2Lists([1, 2, 3, 4, 9], [0]))
 console.log(numToDigitList('12349000999', 2))
+console.log(digitListToNumStr(numToDigitList('12349000999', 2), 2))
+console.log(multiply('123', '456'))
