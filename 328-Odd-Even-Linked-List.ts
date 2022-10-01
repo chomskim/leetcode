@@ -1,6 +1,6 @@
 /**
- * @desc
- * 328. Odd Even Linked List
+ * @desc 328. Odd Even Linked List
+ *
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number

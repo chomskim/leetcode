@@ -1,6 +1,6 @@
 /**
- * @desc
- * 148. Sort List
+ * @desc 148. Sort List
+ *
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number
