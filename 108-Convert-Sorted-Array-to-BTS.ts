@@ -13,7 +13,18 @@
  */
 
 function sortedArrayToBST(nums: number[]): TreeNode | null {
-  let res: TreeNode | null = null
+  function buildBTS(low: number, high: number): TreeNode {
+    let root: TreeNode
+    if (low === high) {
+      root = new TreeNode(nums[low])
+    } else {
+      let mid = Math.floor((low + high) / 2)
+      root = new TreeNode(nums[mid])
+      if (mid > low) root.left = buildBTS(low, mid - 1)
+      if (mid < high) root.right = buildBTS(mid + 1, high)
+    }
+    return root
+  }
 
-  return res
+  return buildBTS(0, nums.length - 1)
 }

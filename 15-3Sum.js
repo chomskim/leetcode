@@ -26,14 +26,14 @@ const threeSum = function (nums) {
     }
     return -1
   }
-  res = new Set()
-  sor = nums.sort((a, b) => a - b)
-  fp = 0
+  let res = new Set()
+  let sor = nums.sort((a, b) => a - b)
+  let fp = 0
   while (sor[fp] <= 0) {
-    bp = sor.length - 1
+    let bp = sor.length - 1
     while (sor[bp] >= 0) {
-      sum = sor[fp] + sor[bp]
-      ind = binSearch(sor, -sum, fp + 1, bp - 1)
+      let sum = sor[fp] + sor[bp]
+      let ind = binSearch(sor, -sum, fp + 1, bp - 1)
       if (ind !== -1) {
         res.add([sor[fp], -sum, sor[bp]].join(','))
       }

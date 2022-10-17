@@ -12,6 +12,20 @@
  * }
  */
 function sortedArrayToBST(nums) {
-    let res = null;
-    return res;
+    function buildBTS(low, high) {
+        let root;
+        if (low === high) {
+            root = new TreeNode(nums[low]);
+        }
+        else {
+            let mid = Math.floor((low + high) / 2);
+            root = new TreeNode(nums[mid]);
+            if (mid > low)
+                root.left = buildBTS(low, mid - 1);
+            if (mid < high)
+                root.right = buildBTS(mid + 1, high);
+        }
+        return root;
+    }
+    return buildBTS(0, nums.length - 1);
 }
